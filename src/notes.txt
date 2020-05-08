@@ -22,85 +22,28 @@ available to you and choose one card. On the back of the card is a table. Roll
 effect of the card. The card might give you a trait, tell you to draw again,
 move you to another deck, or end the mini-game entirely.
 
-Traits
-~~~~~~
+Nouns, Adjectives and Verbs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Character variety is achieved through a small number of stats combined with a
-large number of traits. Traits are chosen at character generation, acquired
-during lifepath, or awarded for positive or negative actions during play. More
-than anything else, traits define who a character is.
+Everything in the game is either a noun, adjective or verb. Anything physical in
+the word is a noun. Bob, the dirty orc, is a noun, but so is a bat, a treasure
+chest or the floor.
 
-Certain events may remove traits. For example, being seriously wounded might
-give you the "Broken Leg" trait, but seeing a doctor could remove the trait.
-Conversely, killing a tough enemy might give you the "Heroic Victory" trait, but
-an enemy with psychic attacks might remove that memory from your mind, removing
-the trait. Still others might just go away on their own, like the "Stunned"
-trait.
+Nouns have properties that set them apart from other nouns. Bob, the dirty orc,
+is smellier than a rock. These properties are represented as adjectives and all
+nouns have a set of adjectives associated with them. Adjectives replace anything
+in a typical game that could describe a noun, including the name of characters,
+stats or characters and equipment, etc.
 
-Traits are like a combination of traits and perks in Fallout, but they're used
-for everything. There are no special status effects, there are no perks, there
-are no feats, there aren't even any skills, there are only traits. Everything is
-a trait.
+Adjectives often have parameters. For example, the "name" adjective will have a
+string type parameter, or the "mass" adjective a mass in kilograms. These
+adjectives are denoted using an equals sign, for example mass=100 or name=Bob.
 
-Statistics
-~~~~~~~~~~
+Finally, verbs describe the interactions that nouns can have. Verbs take a
+subject (the thing acting) and an object (the thing acted upon) and modify them
+in some way. Each attribute has a way of modifying that action. For example,
+imagine you have a rock with the mass=100 that you want to lift. The lift verb
+will do a die roll, iterate through all the subject's adjectives any find any
+bonuses to strength or lift (the base abilty and the specific action), and
+compare that to the rock's arrributes of mass and lift.
 
-The focus of the game is on traits, but there are four stats that represent the
-basic abilities of your player. These are:
-
-* Vigor - Physical strength and endurance.
-* Finesse - Dexterity, balance, hand-eye coordination.
-* Intellect - Memory and other cognitive abilities.
-* Spirit - Ability to commune with gods and other deities.
-
-All these stats have a base value of 0 and are used as bonuses for die rolls and
-as hard limits for equipment and actions. For example, a bow might require 1
-vigor and will have a +finesse bonus, meaning you should add your finesse stat
-to any die roll when shooting the bow.
-
-Each race has its own set of default stats. An orc, for example, may get
-vigor+2, finesse+1 and intellect-1. You aren't locked into typical fantasy
-racial roles, though. Your orc character may be brought into the city as a
-child, raised and educated (intellect+1), be employed as a merchant (another
-intellect+1) and actually join the mage's college. The traits you acquire during
-play define who your character is more than anything else.
-
-Verbs and Nouns
-~~~~~~~~~~~~~~~
-
-Everything in the world is an object, including the player. Objects are nouns
-which act through verbs. Verbs are actions, which could include anything from
-"say" to "kill."
-
-Tags
-~~~~
-
-All objects in the world have a set of tags associated with them. A sword might have
-sharp, metal, steel, and short tags. When interacting with other objects, tags
-define which objects might be compatible. Tags are a bit like "diet traits,"
-they define what objects are in the worlds in a similar manner, but are much
-simpler.
-
-Say you want to perform the "push" action. The push action knows what it means
-to push things like minecarts and buttons, so it will search through all the
-objects in your inventory and in reach and come back with a set of objects for
-you to choose from. Tags are what defines which nouns a verb can act on.
-
-Races
-~~~~~
-
-There are many races in the world. These are typical fantasy races, plus many
-others you wouldn't consider or might consider to be monsters and not playable
-races. Each race has its own unique set of starting stats and traits that define
-how the game will unfold.
-
-* Human
-* Elf
-* Dwarf
-* Gnome
-* Orc
-* Goblin
-* Kobold
-* Troll
-* Ogre
-* Ratman

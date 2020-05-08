@@ -1,6 +1,0 @@
-#include "_defaults.x"
-#include "vigor.x"
-#include "finesse.x"
-#include "intellect.x"
-#include "spirit.x"
-#include "_reset.x"

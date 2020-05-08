@@ -3,14 +3,15 @@
 
 int main() {
   Character bob = {
-    .name = "Bob",
-    .vigor = 10,
-    .finesse = 12,
-    .intellect = 4,
-    .spirit = 10
+    .base_stats = {
+      .vigor = 10,
+      .finesse = 12,
+      .intellect = 4,
+      .spirit = 10
+    }
   };
 
-  printf("%d\n", bob.vigor);
+  printf("%d\n", bob.base_stats.vigor);
 
   return 0;
 }

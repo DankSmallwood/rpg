@@ -1,4 +1,4 @@
-MAKEFLAGS += --no-builtin-rules
+MAKEFLAGS+=--no-builtin-rules
 BUILDDIR=build
 PROFILE=release
 
@@ -11,7 +11,7 @@ TARGET:=$(BUILDDIR)/$(PROFILE)/rpg
 CC=clang
 CFORMAT=clang-format
 
-CFLAGS=-Wall -std=c11
+CFLAGS=-Wall -std=c11 -Isrc
 CFLAGS_debug=-g
 CFLAGS_release=-O3
 CFLAGS+=$(CFLAGS_$(PROFILE))
@@ -31,12 +31,17 @@ $(TARGET): $(GEN_Z) $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) -o $@
 
 .SECONDEXPANSION:
-$(BUILDDIR)/$(PROFILE)/%.z: src/%.y $$(wildcard $$(dir $$<)*.x)
+$(BUILDDIR)/$(PROFILE)/%.z: src/%.y $$(dir src/%)_all.x
 	@echo $@...
 	@mkdir -p $(dir $@)
-	@$(CC) -P -E -x c $< >$@2
+	@$(CC) $(CFLAGS) -P -E -x c $< >$@2
 	@mv $@2 $@
 	@clang-format -i $@
+
+.PHONY:
+%/_all.x: build/util/allx
+	@echo $@...
+	@build/util/allx $(dir $@)
 
 $(DEPDIR)/%.d: $(GEN_Z)
 $(DEPDIR)/%.d: src/%.c
@@ -52,6 +57,11 @@ $(BUILDDIR)/$(PROFILE)/%.o: src/%.c $(DEPDIR)/%.d
 	@echo $@...
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(BUILDDIR)/util/%: util/%.c
+	@echo $@...
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) $^ -o $@
 
 .phony: clean
 clean:
