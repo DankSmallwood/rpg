@@ -1,0 +1,27 @@
+The X system is a way of integrating data into C code using the C preprocessor.
+Data is defined in .x files, .y files use the C preprocessor to transform that
+data into C code which is stored in .z files.
+
+Data that appears once per object is defined using #define symbols. For example,
+thing.x might have these two properties.
+
+#define XNAME thing
+#define XDESC "This is a thing!"
+
+At the start of every object the XSTART() macro is called and at the end the
+XEND() macro is called. The .y files should implement these macros to produce
+valid C code.
+
+There are a number of standardized header files in any X system directory. These
+are:
+
+* _defaults.x - Defines default implementation functions such as XSTART()
+  and XEND() that produce no C code.
+* _reset.x - Undefines any implementation macros.
+* _before.x - This is included before any .x file, it usually just calls
+  XSTART()
+* _after.x - This is included after any .x files. It calls XEND(), but also
+  undefines any properties the .x file may have defined. It gives a clean slate
+  to the next .x file.
+
+The possible implementation and properties are defined in a .xsys file.

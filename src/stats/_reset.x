@@ -1,2 +1,0 @@
-#undef XSTART
-#undef XEND

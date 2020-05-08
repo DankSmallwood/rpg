@@ -28,24 +28,28 @@ GEN_Z=$(patsubst %.y,$(BUILDDIR)/$(PROFILE)/%.z,$(GEN_Y))
 -include $(wildcard $(DEPFILES))
 
 $(TARGET): $(GEN_Z) $(OBJ)
+	@echo Building $@
 	@$(CC) $(CFLAGS) $(OBJ) -o $@
 
 .SECONDEXPANSION:
-$(BUILDDIR)/$(PROFILE)/%.z: src/%.y $$(dir src/%)_all.x
-	@echo $@...
+$(BUILDDIR)/$(PROFILE)/%.z: src/%.y $$(dir $$(BUILDDIR)/$$(PROFILE)/%)_all.xsys
+	@echo Building $@
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -P -E -x c $< >$@2
+	@$(CC) $(CFLAGS) -iquote$(dir $<) -iquote$(dir $@) -P -E -x c $< >$@2
 	@mv $@2 $@
 	@clang-format -i $@
 
-.PHONY:
-%/_all.x: build/util/allx
-	@echo $@...
-	@build/util/allx $(dir $@)
+$(BUILDDIR)/$(PROFILE)/%/_all.xsys: build/util/xsys
+
+.SECONDARY:
+$(BUILDDIR)/$(PROFILE)/%/_all.xsys: src/%/_config.xsys src/%/*.x build/util/xsys
+	@echo Building $@
+	@mkdir -p $(dir $@)
+	@build/util/xsys $(dir $<) $(dir $@)
 
 $(DEPDIR)/%.d: $(GEN_Z)
 $(DEPDIR)/%.d: src/%.c
-	@echo $@...
+	@echo Building $@
 	@mkdir -p $(dir $@)
 	-@$(CC) $(CFLAGS) $(DEPFLAGS) $<
 
@@ -54,12 +58,13 @@ $(DEPFILES):
 
 
 $(BUILDDIR)/$(PROFILE)/%.o: src/%.c $(DEPDIR)/%.d
-	@echo $@...
+	@echo Building $@
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -I$(dir $@) -c $< -o $@
 
+.SECONDARY:
 $(BUILDDIR)/util/%: util/%.c
-	@echo $@...
+	@echo Building $@
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $^ -o $@
 
